@@ -1,42 +1,35 @@
-﻿using System;
-using System.IO;
-
-namespace Care;
+﻿namespace Core;
 
 public class SimpleTextFile
 {
-    private readonly string _Path;
+    private readonly string _path;
 
     public SimpleTextFile(string path)
     {
-        _Path = path;
+        _path = path;
     }
 
     public void WriteLines(string[] lines)
     {
-        var directory = Path.GetDirectoryName(_Path);
-        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-        File.WriteAllLines(_Path, lines);
+        EnsureDirectory();
+        File.WriteAllLines(_path, lines);
     }
-
 
     public string[] ReadLines()
     {
-        if (!File.Exists(_Path))
+        if (!File.Exists(_path))
         {
-            var directory = Path.GetDirectoryName(_Path);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            File.WriteAllText(_Path, string.Empty);
+            EnsureDirectory();
+            File.WriteAllText(_path, string.Empty);
             return Array.Empty<string>();
         }
-
-        return File.ReadAllLines(_Path);
+        return File.ReadAllLines(_path);
     }
 
+    private void EnsureDirectory()
+    {
+        var directory = Path.GetDirectoryName(_path);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+    }
 }
