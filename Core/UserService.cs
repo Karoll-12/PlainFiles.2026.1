@@ -1,9 +1,5 @@
 ﻿namespace Core;
 
-/// <summary>
-/// Handles authentication against Users.txt, enforces 3-attempt lockout,
-/// and persists changes back to the file.
-/// </summary>
 public class UserService
 {
     private const int MaxAttempts = 3;
@@ -18,15 +14,7 @@ public class UserService
         _users = Load();
     }
 
-    // ---------------------------------------------------------------
-    // Public API
-    // ---------------------------------------------------------------
-
-    /// <summary>
-    /// Interactively prompts for credentials until login succeeds or the
-    /// user is locked out. Returns the username on success, null if the
-    /// account was locked.
-    /// </summary>
+   
     public string? Login()
     {
         Console.Write("Username: ");
@@ -77,12 +65,10 @@ public class UserService
             }
         }
 
-        return null; // unreachable but satisfies compiler
+        return null; 
     }
 
-    // ---------------------------------------------------------------
-    // Private helpers
-    // ---------------------------------------------------------------
+    
 
     private List<UserAccount> Load()
     {
@@ -99,7 +85,7 @@ public class UserService
         file.WriteLines(_users.Select(u => string.Join(",", u.ToFields())).ToArray());
     }
 
-    /// <summary>Reads a password from the console without echoing characters.</summary>
+    
     private static string ReadPassword()
     {
         var sb = new System.Text.StringBuilder();

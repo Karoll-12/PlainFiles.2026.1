@@ -2,19 +2,19 @@
 
 public class FixedWidthRecord
 {
-    // Code: 5 characters
+    
     public string Code { get; set; } = null!;
 
-    // Description: 40 characters
+    
     public string Description { get; set; } = null!;
 
-    // Category: 15 characters
+    
     public string Category { get; set; } = null!;
 
-    // Quantity: 5 characters
+    
     public int Quantity { get; set; }
 
-    // Price: 12 characters
+    
     public decimal Price { get; set; }
 
     public decimal Value => Price * Quantity;

@@ -3,10 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Core;
 
-/// <summary>
-/// Manages the list of Person records stored in a CSV-like plain text file.
-/// Every mutating operation writes to the log with the acting username.
-/// </summary>
+
 public class PersonService
 {
     private readonly string _dataPath;
@@ -22,14 +19,12 @@ public class PersonService
         _people = Load();
     }
 
-    // ================================================================
-    // CREATE
-    // ================================================================
+   
     public void Create()
     {
         Console.WriteLine("\n--- Add Person ---");
 
-        // ID
+        
         int id;
         while (true)
         {
@@ -64,9 +59,7 @@ public class PersonService
         Console.WriteLine("  Person added successfully.");
     }
 
-    // ================================================================
-    // READ (list all)
-    // ================================================================
+ 
     public void ListAll()
     {
         Console.WriteLine("\n--- Person List ---");
@@ -79,9 +72,7 @@ public class PersonService
         _log.WriteLog("INFO", _username, "Listed all persons.");
     }
 
-    // ================================================================
-    // UPDATE
-    // ================================================================
+
     public void Update()
     {
         Console.WriteLine("\n--- Edit Person ---");
@@ -107,9 +98,6 @@ public class PersonService
         Console.WriteLine("  Person updated successfully.");
     }
 
-    // ================================================================
-    // DELETE
-    // ================================================================
     public void Delete()
     {
         Console.WriteLine("\n--- Delete Person ---");
@@ -131,9 +119,7 @@ public class PersonService
         Console.WriteLine("  Person deleted successfully.");
     }
 
-    // ================================================================
-    // REPORT — subtotals by city
-    // ================================================================
+    
     public void Report()
     {
         Console.WriteLine("\n--- Balance Report by City ---\n");
@@ -171,9 +157,7 @@ public class PersonService
         _log.WriteLog("INFO", _username, $"Report by city generated. Grand total: {grandTotal:N2}");
     }
 
-    // ================================================================
-    // Private helpers — persistence
-    // ================================================================
+ 
     private List<Person> Load()
     {
         var file = new SimpleTextFile(_dataPath);
@@ -189,9 +173,7 @@ public class PersonService
         file.WriteLines(_people.Select(p => string.Join(",", p.ToFields())).ToArray());
     }
 
-    // ================================================================
-    // Private helpers — console input
-    // ================================================================
+    
     private static string ReadRequired(string prompt)
     {
         while (true)
@@ -277,9 +259,6 @@ public class PersonService
         return person;
     }
 
-    // ================================================================
-    // Private helpers — display
-    // ================================================================
     private static void PrintHeader()
     {
         Console.WriteLine($"\n{"ID",-6} {"First Name",-20} {"Last Name",-20} {"Phone",-16} {"City",-15} {"Balance",12}");
